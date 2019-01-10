@@ -23,7 +23,7 @@ $ python setup.py
 * mallory/mallory.py
 * mallory/bad_file.txt
 * pks/pks.py
-* helpers/__init__.py
+* helpers/\_\_init\_\_.py
 * helpers/ns.py
 * helpers/rsa.py
 * helpers/aes.py
