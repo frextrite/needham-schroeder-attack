@@ -33,7 +33,7 @@ def ns_authentication(conn):
     client_pkey = ns.get_public_key(pks_address, client_name, NAME, rsa_key)
     client_pkey = rsa.import_key(client_pkey)
 
-    # A <-- {N_A, N_B} -- B
+    # A <-- {N_A, N_B}(K_PA) -- B
     bob_nonce = ns.generate_nonce()
     response = "{},{}".format(client_nonce, bob_nonce)
     response = rsa.encrypt(client_pkey, response)
@@ -47,7 +47,7 @@ def ns_authentication(conn):
     bob_resp_nonce = int(bob_resp_nonce)
     print("Bob: recieved session key {} and nonce {}".format(ssn_key, bob_resp_nonce))
 
-    # check if client did actually recieve Bob's nonce
+    # check if client did actually receive Bob's nonce
     if bob_resp_nonce == bob_nonce:
         response = bytes(str(RESP_VERIFIED), "utf-8")
         conn.sendall(response)
@@ -161,7 +161,7 @@ def serve_client():
                 request = aes.decrypt(ssn_key, conn.recv(1024))
                 file_name, mode = request.split(',')
                 response = aes.encrypt(ssn_key, SIG_GOOD)
-                print("Bob: recieved request of file {} for mode {}".format(file_name, mode))
+                print("Bob: received request of file {} for mode {}".format(file_name, mode))
 
                 # serve to upload or download the file
                 if mode == UPLOAD:

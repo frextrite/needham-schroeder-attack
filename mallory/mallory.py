@@ -182,7 +182,7 @@ def attack(conn):
             return print("Mallory: I've been spotted! Shutting down...")
         req_client = rsa.decrypt(rsa_key, req_client)
         ssn_key, bob_nonce = req_client.split(',')
-        print("Mallory: recieved session key b'{}' and bob's nonce {} from {}".format(ssn_key, bob_nonce, client_name))
+        print("Mallory: received session key b'{}' and bob's nonce {} from {}".format(ssn_key, bob_nonce, client_name))
 
         # M -- {K, N_B}(KP_B) --> B
         req_bob = "{},{}".format(ssn_key, bob_nonce)
